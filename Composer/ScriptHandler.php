@@ -308,12 +308,10 @@ EOF
         }
 
         $process = new Process([
-            $php,
-            $phpArgs ? ' '.$phpArgs : '',
-            $cmd,
-            $bootstrapDir,
-            $autoloadDir,
-            $useNewDirectoryStructure
+            str_replace("'", "", $cmd),
+            str_replace("'", "", $bootstrapDir),
+            str_replace("'", "", $autoloadDir),
+            str_replace("'", "", $useNewDirectoryStructure),
         ], getcwd(), null, null, $timeout);
 
         $process->run(function ($type, $buffer) use ($event) { $event->getIO()->write($buffer, false); });
